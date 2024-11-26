@@ -1,0 +1,26 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  venv.create:
+    desc: Create virtual environment
+    cmds:
+      - python -m venv .venv
+  install:
+    desc: Install dependencies
+    run: once
+    cmds:
+      - python -m pip install --upgrade pip
+      - pip install -r requirements.txt
+  setup.day:
+    desc: Setup for the day
+    cmds:
+      - mkdir -p "{{.NAME}}"
+      - touch "{{.NAME}}/test.txt"
+      - touch "{{.NAME}}/input.txt"
+      - touch "{{.NAME}}.ipynb"
+    vars:
+      NAME: "day{{.DAY}}"
+    requires:
+      vars: [ DAY ]
