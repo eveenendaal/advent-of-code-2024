@@ -19,7 +19,7 @@ tasks:
       - mkdir -p "{{.NAME}}"
       - touch "{{.NAME}}/test.txt"
       - touch "{{.NAME}}/input.txt"
-      - touch "{{.NAME}}.ipynb"
+      - cat template/template.ipynb | sed "s/<<NAME>>/{{.NAME}}/g" > "{{.NAME}}.ipynb"
     vars:
       NAME: "day{{.DAY}}"
     requires:
