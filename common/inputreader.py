@@ -1,8 +1,12 @@
 class InputReader:
-    def __init__(self, filename):
+    """
+    Class to read input from file
+    """
+
+    def __init__(self, filename: str):
         self.filename = filename
 
-    def lines_as_str(self):
+    def lines_as_str(self) -> list:
         """
         Read input as list of strings
 
@@ -14,7 +18,7 @@ class InputReader:
             input = [x.strip() for x in input]
         return input
 
-    def lines_as_int(self):
+    def lines_as_int(self) -> list:
         """
         Read input as list of integers
 
@@ -22,7 +26,7 @@ class InputReader:
         """
         return list(map(int, self.lines_as_str()))
 
-    def lines_as_ints(self):
+    def lines_as_ints(self) -> list:
         """
         Read input as list of lists of integers
 
