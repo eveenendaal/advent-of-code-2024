@@ -16,10 +16,7 @@ tasks:
   setup.day:
     desc: Setup for the day
     cmds:
-      - mkdir -p "{{.NAME}}"
-      - touch "{{.NAME}}/test.txt"
-      - touch "{{.NAME}}/input.txt"
-      - cat template/template.ipynb | sed "s/<<NAME>>/{{.NAME}}/g" > "{{.NAME}}.ipynb"
+      - cat template/template.ipynb | sed "s/<<DAY>>/{{.DAY}}/g" > "{{.NAME}}.ipynb"
     vars:
       NAME: "day{{.DAY}}"
     requires:
