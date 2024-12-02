@@ -84,4 +84,10 @@ def print_leaderboard(id, top=10):
 
     # convert to dataframe
     df = pd.DataFrame(board)
-    display(df[['name', 'local_score', 'stars', 'progress']].head(top))
+
+    df.rename(columns={"name": "Name"}, inplace=True)
+    df.rename(columns={"local_score": "Score"}, inplace=True)
+    df.rename(columns={"stars": "Stars"}, inplace=True)
+    df.rename(columns={"progress": "Progress"}, inplace=True)
+
+    display(df[['Name', 'Score', 'Stars', 'Progress']].head(top))
