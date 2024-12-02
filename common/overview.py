@@ -2,6 +2,7 @@ import os
 
 import pandas as pd
 import requests
+from IPython.core.display import Markdown
 from aocd.models import default_user
 
 
@@ -52,20 +53,27 @@ def get_personal_overview():
 
     for date, data in stats.items():
         for key, value in data.items():
-            results.append({'day': date,
-                            'part': key.upper(),
-                            'time': value['time'],
-                            'rank': value['rank'],
-                            'score': value['score']
+            results.append({'Day': date,
+                            'Part': key.upper(),
+                            'Time': value['time'],
+                            'Rank': value['rank']
                             })
 
     # create dataframe from results
     df = pd.DataFrame(results)
 
+    # split out a and b into separate columns
+    df = df.pivot(index='Day', columns='Part', values=['Time', 'Rank'])
+    # flatten the multi-index columns
+    df.columns = [' '.join(col).strip() for col in df.columns.values]
+    # Sort Columns by Part
+    df = df.reindex(columns=['Time A', 'Rank A', 'Time B', 'Rank B'])
+
+    display(Markdown(f"[Personal Stats](https://adventofcode.com/2024/leaderboard/self)"))
     display(df)
 
 
-def print_leaderboard(id, top=10):
+def print_leaderboard(title, id, top=10):
     url = f"https://adventofcode.com/2024/leaderboard/private/view/{id}.json"
     # AOC_SESSION variable from environment
     session_id = os.getenv("AOC_SESSION")
@@ -95,4 +103,6 @@ def print_leaderboard(id, top=10):
     df.rename(columns={"stars": "Stars"}, inplace=True)
     df.rename(columns={"progress": "Progress"}, inplace=True)
 
+    display(Markdown(f"## {title}"))
+    display(Markdown(f"[Private Leaderboard](https://adventofcode.com/2024/leaderboard/private/view/{id})"))
     display(df[['Name', 'Score', 'Stars', 'Progress']].head(top))
