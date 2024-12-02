@@ -19,6 +19,6 @@ tasks:
       - cat template/template.ipynb | sed "s/<<DAY>>/{{.DAY}}/g" > "{{.NAME}}.ipynb"
       - git add "{{.NAME}}.ipynb"
     vars:
-      NAME: "day{{.DAY}}"
+      NAME: "day_{{.DAY}}"
     requires:
       vars: [ DAY ]
