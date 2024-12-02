@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 
 import pandas as pd
 import requests
@@ -69,6 +70,7 @@ def get_personal_overview():
     # Sort Columns by Part
     df = df.reindex(columns=['Time A', 'Rank A', 'Time B', 'Rank B'])
 
+    display(Markdown(f"**Updated:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"))
     display(Markdown(f"[Personal Stats](https://adventofcode.com/2024/leaderboard/self)"))
     display(df)
 
@@ -104,5 +106,6 @@ def print_leaderboard(title, id, top=10):
     df.rename(columns={"progress": "Progress"}, inplace=True)
 
     display(Markdown(f"## {title}"))
+    display(Markdown(f"**Updated:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"))
     display(Markdown(f"[Private Leaderboard](https://adventofcode.com/2024/leaderboard/private/view/{id})"))
     display(df[['Name', 'Score', 'Stars', 'Progress']].head(top))
