@@ -21,7 +21,12 @@ class Member:
                 self.stars += 1
 
     def progress_str(self):
-        return "".join([str(self.progress.get(str(x), '0')) for x in range(1, 26)])
+        emoji_map = {
+            0: '⬜',  # empty
+            1: '⭐',  # one star
+            2: '🌟'  # two stars
+        }
+        return "".join([emoji_map.get(self.progress.get(str(x), 0)) for x in range(1, 26)])
 
     def to_dict(self):
         return {
