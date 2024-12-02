@@ -2,7 +2,7 @@ name: Update Overview Notebook
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # This will run the workflow every day at midnight
+    - cron: '0 3 * * *' # This will run the workflow every day at 3am
   push:
     branches:
       - master
