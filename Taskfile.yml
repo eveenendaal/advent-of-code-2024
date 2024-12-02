@@ -22,3 +22,7 @@ tasks:
       NAME: "day_{{.DAY}}"
     requires:
       vars: [ DAY ]
+  overview.update:
+    desc: Update overview
+    cmds:
+      - jupyter execute --inplace overview.ipynb
