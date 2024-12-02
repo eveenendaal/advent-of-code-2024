@@ -38,7 +38,7 @@ jobs:
           version: 3.x
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Execute Jupyter notebook
+      - name: Prepare Notebook
         run: task setup.today
 
       - uses: stefanzweifel/git-auto-commit-action@v5
