@@ -7,6 +7,10 @@ tasks:
     desc: Create virtual environment
     cmds:
       - python -m venv .venv
+  venv.activate:
+    desc: Activate virtual environment
+    cmds:
+      - source .venv/bin/activate
   install:
     desc: Install dependencies
     run: once
