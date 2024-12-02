@@ -13,14 +13,14 @@ class Member:
         self.id = data['id']
         self.local_score = data['local_score']
         self.global_score = data['global_score']
-        # add stars
-        self.stars = 0
+        self.stars = data['stars']
         self.progress = {}
         for day, day_data in data['completion_day_level'].items():
-            self.progress[day] = 0
-            for _, _ in day_data.items():
-                self.progress[day] += 1
-                self.stars += 1
+            levels = [int(x) for x in day_data.keys()]
+            if len(levels) > 0:
+                self.progress[day] = max(levels)
+            else:
+                self.progress[day] = 0
 
     def progress_str(self):
         emoji_map = {
@@ -41,16 +41,17 @@ class Member:
         }
 
 
+class Part:
+    def __init__(self, data):
+        self.time = data['time'].total_seconds()
+        self.rank = data['rank']
+        self.score = data['score']
+
+
 def get_personal_overview():
     user = default_user()
     stats = user.get_stats(2024)
     results = []
-
-    class Part:
-        def __init__(self, data):
-            self.time = data['time'].total_seconds()
-            self.rank = data['rank']
-            self.score = data['score']
 
     for date, data in stats.items():
         for key, value in data.items():
@@ -60,11 +61,8 @@ def get_personal_overview():
                             'Rank': value['rank']
                             })
 
-    # create dataframe from results
-    df = pd.DataFrame(results)
-
     # split out a and b into separate columns
-    df = df.pivot(index='Day', columns='Part', values=['Time', 'Rank'])
+    df = pd.DataFrame(results).pivot(index='Day', columns='Part', values=['Time', 'Rank'])
     # flatten the multi-index columns
     df.columns = [' '.join(col).strip() for col in df.columns.values]
     # Sort Columns by Part
