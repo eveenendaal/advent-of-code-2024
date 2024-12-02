@@ -60,7 +60,7 @@ def get_personal_overview():
     display(df)
 
 
-def print_leaderboard(id):
+def print_leaderboard(id, top=10):
     url = f"https://adventofcode.com/2024/leaderboard/private/view/{id}.json"
     # AOC_SESSION variable from environment
     session_id = os.getenv("AOC_SESSION")
@@ -84,4 +84,4 @@ def print_leaderboard(id):
 
     # convert to dataframe
     df = pd.DataFrame(board)
-    display(df[['name', 'local_score', 'stars', 'progress']])
+    display(df[['name', 'local_score', 'stars', 'progress']].head(top))
