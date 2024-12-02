@@ -1,4 +1,4 @@
-name: Update Cost Notebook
+name: Update Overview Notebook
 
 on:
   schedule:
