@@ -7,3 +7,4 @@ tqdm==4.66.5
 pandas_gbq==0.23.2
 advent-of-code-data[nb]==2.0.4
 python-dotenv==1.0.1
+requests==2.32.3

@@ -24,5 +24,7 @@ tasks:
       vars: [ DAY ]
   overview.update:
     desc: Update overview
+    deps:
+      - install
     cmds:
       - jupyter execute --inplace overview.ipynb
