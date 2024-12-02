@@ -17,6 +17,7 @@ tasks:
     desc: Setup for the day
     cmds:
       - cat template/template.ipynb | sed "s/<<DAY>>/{{.DAY}}/g" > "{{.NAME}}.ipynb"
+      - git add "{{.NAME}}.ipynb"
     vars:
       NAME: "day{{.DAY}}"
     requires:
