@@ -73,21 +73,21 @@ class MatrixNavigator:
         :return:
         """
         x, y = self.current_position
-        if direction == Direction.UP and x > 0:
-            self.current_position = (x - 1, y)
-        elif direction == Direction.DOWN and x < self.matrix.rows - 1:
-            self.current_position = (x + 1, y)
-        elif direction == Direction.LEFT and y > 0:
+        if direction == Direction.UP and y > 0:
             self.current_position = (x, y - 1)
-        elif direction == Direction.RIGHT and y < self.matrix.cols - 1:
+        elif direction == Direction.DOWN and y < self.matrix.rows - 1:
             self.current_position = (x, y + 1)
+        elif direction == Direction.LEFT and x > 0:
+            self.current_position = (x - 1, y)
+        elif direction == Direction.RIGHT and x < self.matrix.cols - 1:
+            self.current_position = (x + 1, y)
         elif direction == Direction.UP_LEFT and x > 0 and y > 0:
             self.current_position = (x - 1, y - 1)
-        elif direction == Direction.UP_RIGHT and x > 0 and y < self.matrix.cols - 1:
+        elif direction == Direction.DOWN_LEFT and x > 0 and y < self.matrix.rows - 1:
             self.current_position = (x - 1, y + 1)
-        elif direction == Direction.DOWN_LEFT and x < self.matrix.rows - 1 and y > 0:
+        elif direction == Direction.UP_RIGHT and x < self.matrix.cols - 1 and y > 0:
             self.current_position = (x + 1, y - 1)
-        elif direction == Direction.DOWN_RIGHT and x < self.matrix.rows - 1 and y < self.matrix.cols - 1:
+        elif direction == Direction.DOWN_RIGHT and x < self.matrix.cols - 1 and y < self.matrix.rows - 1:
             self.current_position = (x + 1, y + 1)
         else:
             return False
