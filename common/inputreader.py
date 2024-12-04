@@ -1,4 +1,4 @@
-from common.grid import MatrixNavigator
+from common.matrix import MatrixNavigator
 
 
 class InputReader:
@@ -41,7 +41,7 @@ class InputReader:
         """
         return [list(map(int, x.split())) for x in self.input_data]
 
-    def grid(self) -> MatrixNavigator:
+    def matrix(self) -> MatrixNavigator:
         """
         Read input as grid
 
