@@ -1,3 +1,6 @@
+from common.grid import MatrixNavigator
+
+
 class InputReader:
     """
     Class to read input from file
@@ -13,6 +16,14 @@ class InputReader:
         :return:
         """
         return self.input_data
+
+    def as_str(self) -> str:
+        """
+        Read input as list of strings
+
+        :return:
+        """
+        return "".join(self.input_data)
 
     def lines_as_int(self) -> list:
         """
@@ -30,10 +41,10 @@ class InputReader:
         """
         return [list(map(int, x.split())) for x in self.input_data]
 
-    def grid(self):
+    def grid(self) -> MatrixNavigator:
         """
         Read input as grid
 
         :return:
         """
-        return [list(x) for x in self.input_data]
+        return MatrixNavigator([list(x) for x in self.input_data])
