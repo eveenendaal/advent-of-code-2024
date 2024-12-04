@@ -29,3 +29,11 @@ class InputReader:
         :return:
         """
         return [list(map(int, x.split())) for x in self.input_data]
+
+    def grid(self):
+        """
+        Read input as grid
+
+        :return:
+        """
+        return [list(x) for x in self.input_data]
