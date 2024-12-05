@@ -7,3 +7,4 @@ tqdm==4.67.1
 pandas_gbq==0.24.0
 advent-of-code-data[nb]==2.0.4
 requests==2.32.3
+beautifulsoup4==4.12.3

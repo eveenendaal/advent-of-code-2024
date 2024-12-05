@@ -1,3 +1,6 @@
+from aocd.models import Puzzle
+from bs4 import BeautifulSoup
+
 from common.matrix import Matrix
 
 
@@ -6,7 +9,7 @@ class InputReader:
     Class to read input from file
     """
 
-    def __init__(self, input_source):
+    def __init__(self, input_source: str):
         self.input_data = input_source.splitlines()
 
     def lines_as_str(self) -> list:
@@ -48,3 +51,35 @@ class InputReader:
         :return:
         """
         return Matrix([list(x) for x in self.input_data])
+
+
+class PuzzleWrapper:
+    """
+    Class to wrap the puzzle
+    """
+
+    def __init__(self, puzzle: Puzzle):
+        self.puzzle = puzzle
+
+    def get_code_blocks(self) -> list:
+        files = [
+            self.puzzle.prose0_path,
+            self.puzzle.prose1_path,
+            self.puzzle.prose2_path
+        ]
+
+        output = []
+
+        for file in files:
+            # read files if they exist
+            if file.is_file():
+                text = file.read_text()
+                soup = BeautifulSoup(text, features="html.parser")
+                for code in soup.find_all("code"):
+                    for content in code.contents:
+                        output.append(content)
+
+        return output
+
+    def get_code_block(self, block_number: int) -> str:
+        return self.get_code_blocks()[block_number]
