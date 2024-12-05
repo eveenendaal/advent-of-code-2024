@@ -1,2 +1,7 @@
-# advent-of-code-2024
-advent-of-code-2024
+# Advent of Code 2024
+
+My solutions to the Advent of Code 2024 puzzles.
+
+## Links
+
+- [NetworkX](https://networkx.org/documentation/stable/index.html)
