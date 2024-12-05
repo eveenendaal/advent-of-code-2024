@@ -61,7 +61,7 @@ class PuzzleWrapper:
     def __init__(self, puzzle: Puzzle):
         self.puzzle = puzzle
 
-    def get_code_blocks(self) -> list:
+    def get_code_blocks(self, min_length) -> list:
         files = [
             self.puzzle.prose0_path,
             self.puzzle.prose1_path,
@@ -79,9 +79,11 @@ class PuzzleWrapper:
                     text = []
                     for content in code.contents:
                         text.append(content.get_text())
-                    output.append("".join(text))
+                    text = "".join(text)
+                    if len(text) >= min_length:
+                        output.append(text)
 
         return output
 
-    def get_code_block(self, block_number: int) -> str:
-        return self.get_code_blocks()[block_number]
+    def get_code_block(self, block_number: int, min_length=30) -> str:
+        return self.get_code_blocks(min_length)[block_number]
