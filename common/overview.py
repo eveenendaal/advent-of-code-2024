@@ -48,9 +48,9 @@ class Part:
         self.score = data['score']
 
 
-def get_personal_overview():
+def get_personal_overview(year=2024):
     user = default_user()
-    stats = user.get_stats(2024)
+    stats = user.get_stats(year)
     results = []
 
     for date, data in stats.items():
@@ -69,7 +69,7 @@ def get_personal_overview():
     df = df.reindex(columns=['Time A', 'Rank A', 'Time B', 'Rank B'])
 
     display(Markdown(f"**Updated:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"))
-    display(Markdown(f"[Personal Stats](https://adventofcode.com/2024/leaderboard/self)"))
+    display(Markdown(f"[Personal Stats](https://adventofcode.com/{year}/leaderboard/self)"))
     display(df)
 
 
