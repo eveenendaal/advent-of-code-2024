@@ -76,8 +76,10 @@ class PuzzleWrapper:
                 text = file.read_text()
                 soup = BeautifulSoup(text, features="html.parser")
                 for code in soup.find_all("code"):
+                    text = []
                     for content in code.contents:
-                        output.append(content)
+                        text.append(content.get_text())
+                    output.append("".join(text))
 
         return output
 
