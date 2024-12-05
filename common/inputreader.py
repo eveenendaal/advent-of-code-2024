@@ -52,38 +52,29 @@ class InputReader:
         """
         return Matrix([list(x) for x in self.input_data])
 
+def get_code_blocks(puzzle : Puzzle, min_length) -> list:
+    files = [
+        puzzle.prose0_path,
+        puzzle.prose1_path,
+        puzzle.prose2_path
+    ]
 
-class PuzzleWrapper:
-    """
-    Class to wrap the puzzle
-    """
+    output = []
 
-    def __init__(self, puzzle: Puzzle):
-        self.puzzle = puzzle
+    for file in files:
+        # read files if they exist
+        if file.is_file():
+            text = file.read_text()
+            soup = BeautifulSoup(text, features="html.parser")
+            for code in soup.find_all("code"):
+                text = []
+                for content in code.contents:
+                    text.append(content.get_text())
+                text = "".join(text)
+                if len(text) >= min_length:
+                    output.append(text)
 
-    def get_code_blocks(self, min_length) -> list:
-        files = [
-            self.puzzle.prose0_path,
-            self.puzzle.prose1_path,
-            self.puzzle.prose2_path
-        ]
+    return output
 
-        output = []
-
-        for file in files:
-            # read files if they exist
-            if file.is_file():
-                text = file.read_text()
-                soup = BeautifulSoup(text, features="html.parser")
-                for code in soup.find_all("code"):
-                    text = []
-                    for content in code.contents:
-                        text.append(content.get_text())
-                    text = "".join(text)
-                    if len(text) >= min_length:
-                        output.append(text)
-
-        return output
-
-    def get_code_block(self, block_number: int, min_length=30) -> str:
-        return self.get_code_blocks(min_length)[block_number]
+def get_code_block(puzzle : Puzzle, block_number: int, min_length=30) -> str:
+    return get_code_blocks(puzzle, min_length)[block_number]
