@@ -1,4 +1,5 @@
 from enum import Enum
+import copy
 
 
 class Matrix:
@@ -26,6 +27,16 @@ class Matrix:
         """
         return self.matrix[y][x]
 
+    def set_value(self, x, y, value):
+        """
+        Set value at position
+
+        :param x:
+        :param y:
+        :param value:
+        """
+        self.matrix[y][x] = value
+
     def get_lines(self):
         """
         Get lines
@@ -51,6 +62,13 @@ class Matrix:
             for x in range(self.cols):
                 yield x, y, self.get_value(x, y)
 
+    def copy(self):
+        """
+        Create a deep copy of the matrix
+
+        :return: Matrix
+        """
+        return Matrix(copy.deepcopy(self.matrix))
 
 class Direction(Enum):
     """
