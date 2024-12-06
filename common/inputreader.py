@@ -52,6 +52,7 @@ class InputReader:
         """
         return Matrix([list(x) for x in self.input_data])
 
+
 def get_code_blocks(puzzle : Puzzle, min_length) -> list:
     files = [
         puzzle.prose0_path,

@@ -34,8 +34,22 @@ class Matrix:
         """
         return self.matrix
 
-    def __str__(self):
-        return "\n".join(["".join(row) for row in self.matrix])
+    def print(self):
+        """
+        Print matrix
+        """
+        for row in self.matrix:
+            print(row)
+
+    def __iter__(self):
+        """
+        Iterator to iterate over the matrix
+
+        :yield: (x, y, value)
+        """
+        for y in range(self.rows):
+            for x in range(self.cols):
+                yield x, y, self.get_value(x, y)
 
 
 class Direction(Enum):
@@ -138,3 +152,12 @@ class MatrixNavigator:
             self.current_position = (x, y)
         else:
             raise ValueError("Position out of bounds")
+
+    def set_value(self, value):
+        """
+        Set value at current position
+
+        :param value:
+        """
+        x, y = self.current_position
+        self.matrix.matrix[y][x] = value
