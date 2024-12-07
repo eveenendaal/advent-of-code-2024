@@ -44,6 +44,14 @@ class InputReader:
         """
         return [list(map(int, x.split())) for x in self.input_data]
 
+    def lines_as_strs(self) -> list:
+        """
+        Read input as list of lists of integers
+
+        :return:
+        """
+        return [list(x.split()) for x in self.input_data]
+
     def matrix(self) -> Matrix:
         """
         Read input as matrix
