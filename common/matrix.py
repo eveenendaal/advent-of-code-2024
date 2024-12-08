@@ -27,6 +27,16 @@ class Matrix:
         """
         return self.matrix[y][x]
 
+    def pos_exists(self, x, y):
+        """
+        Check if position exists
+
+        :param x:
+        :param y:
+        :return:
+        """
+        return 0 <= x < self.cols and 0 <= y < self.rows
+
     def set_value(self, x, y, value):
         """
         Set value at position
@@ -50,7 +60,7 @@ class Matrix:
         Print matrix
         """
         for row in self.matrix:
-            print(row)
+            print("".join(row))
 
     def __iter__(self):
         """
