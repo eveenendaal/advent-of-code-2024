@@ -62,55 +62,69 @@ class InputReader:
         return Matrix([list(x) for x in self.input_data])
 
 
-def get_code_blocks(puzzle: Puzzle, min_length) -> list:
-    files = [
-        puzzle.prose0_path,
-        puzzle.prose1_path,
-        puzzle.prose2_path
-    ]
+class PuzzleWrapper:
 
-    output = []
+    def __init__(self, year: int, day: int):
+        self.puzzle = Puzzle(year=year, day=day)
 
-    for file in files:
-        # read files if they exist
-        if file.is_file():
-            text = file.read_text()
-            soup = BeautifulSoup(text, features="html.parser")
-            for code in soup.find_all("code"):
-                text = []
-                for content in code.contents:
-                    text.append(content.get_text())
-                text = "".join(text)
-                if len(text) >= min_length:
-                    output.append(text)
+    def get_code_blocks(self, min_length) -> list:
+        files = [
+            self.puzzle.prose0_path,
+            self.puzzle.prose1_path,
+            self.puzzle.prose2_path
+        ]
 
-    return output
+        output = []
 
+        for file in files:
+            # read files if they exist
+            if file.is_file():
+                text = file.read_text()
+                soup = BeautifulSoup(text, features="html.parser")
+                for code in soup.find_all("code"):
+                    text = []
+                    for content in code.contents:
+                        text.append(content.get_text())
+                    text = "".join(text)
+                    if len(text) >= min_length:
+                        output.append(text)
 
-def get_code_block(puzzle: Puzzle, block_number: int, min_length=30) -> str:
-    return get_code_blocks(puzzle, min_length)[block_number]
+        return output
 
+    def get_code_block(self, block_number: int, min_length=30) -> str:
+        return self.get_code_blocks(min_length)[block_number]
 
-def print_article(puzzle: Puzzle, part: int):
-    files = [
-        puzzle.prose1_path,
-        puzzle.prose2_path
-    ]
+    def print_article(self, part: int):
+        files = [
+            self.puzzle.prose1_path,
+            self.puzzle.prose2_path
+        ]
 
-    articles = []
+        articles = []
 
-    for file in files:
-        # read files if they exist
-        if file.is_file():
-            text = file.read_text()
-            soup = BeautifulSoup(text, features="html.parser")
-            for article in soup.find_all("article"):
-                articles.append(article)
+        for file in files:
+            # read files if they exist
+            if file.is_file():
+                text = file.read_text()
+                soup = BeautifulSoup(text, features="html.parser")
+                for article in soup.find_all("article"):
+                    articles.append(article)
 
-    display(HTML(articles[part].prettify()))
+        display(HTML(articles[part].prettify()))
 
+    def print_easter_eggs(self):
+        display(Markdown(f"## Easter Eggs"))
+        for next_easter_egg in self.puzzle.easter_eggs:
+            title = next_easter_egg['title']
+            display(Markdown(f"{next_easter_egg} ({title})"))
 
-def print_easter_eggs(puzzle: Puzzle):
-    display(Markdown(f"## Easter Eggs"))
-    for next_easter_egg in puzzle.easter_eggs:
-        display(Markdown(f"{next_easter_egg} ({next_easter_egg['title']})"))
+    def example(self, example_number=0) -> InputReader:
+        example = self.puzzle.examples[example_number]
+        return InputReader(example.input_data)
+
+    def input(self) -> InputReader:
+        return InputReader(self.puzzle.input_data)
+
+    def header(self):
+        display(Markdown(f"# {self.puzzle.title}"))
+        display(Markdown(f"[Open Website]({self.puzzle.url})"))
