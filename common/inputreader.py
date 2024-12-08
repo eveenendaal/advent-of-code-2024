@@ -1,5 +1,6 @@
 from aocd.models import Puzzle
 from bs4 import BeautifulSoup
+from IPython.core.display import Markdown, display
 
 from common.matrix import Matrix
 
@@ -87,3 +88,8 @@ def get_code_blocks(puzzle : Puzzle, min_length) -> list:
 
 def get_code_block(puzzle : Puzzle, block_number: int, min_length=30) -> str:
     return get_code_blocks(puzzle, min_length)[block_number]
+
+def print_easter_eggs(puzzle : Puzzle):
+    display(Markdown(f"## Easter Eggs"))
+    for next in puzzle.easter_eggs:
+        display(Markdown(f"{next} ({next.attrs['title']})"))
