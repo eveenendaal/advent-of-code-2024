@@ -1,6 +1,6 @@
+from IPython.core.display import HTML, Markdown
 from aocd.models import Puzzle
 from bs4 import BeautifulSoup
-from IPython.core.display import Markdown, display
 
 from common.matrix import Matrix
 
@@ -62,7 +62,7 @@ class InputReader:
         return Matrix([list(x) for x in self.input_data])
 
 
-def get_code_blocks(puzzle : Puzzle, min_length) -> list:
+def get_code_blocks(puzzle: Puzzle, min_length) -> list:
     files = [
         puzzle.prose0_path,
         puzzle.prose1_path,
@@ -86,10 +86,31 @@ def get_code_blocks(puzzle : Puzzle, min_length) -> list:
 
     return output
 
-def get_code_block(puzzle : Puzzle, block_number: int, min_length=30) -> str:
+
+def get_code_block(puzzle: Puzzle, block_number: int, min_length=30) -> str:
     return get_code_blocks(puzzle, min_length)[block_number]
 
-def print_easter_eggs(puzzle : Puzzle):
+
+def print_article(puzzle: Puzzle, part: int):
+    files = [
+        puzzle.prose1_path,
+        puzzle.prose2_path
+    ]
+
+    articles = []
+
+    for file in files:
+        # read files if they exist
+        if file.is_file():
+            text = file.read_text()
+            soup = BeautifulSoup(text, features="html.parser")
+            for article in soup.find_all("article"):
+                articles.append(article)
+
+    display(HTML(articles[part].prettify()))
+
+
+def print_easter_eggs(puzzle: Puzzle):
     display(Markdown(f"## Easter Eggs"))
-    for next in puzzle.easter_eggs:
-        display(Markdown(f"{next} ({next.attrs['title']})"))
+    for next_easter_egg in puzzle.easter_eggs:
+        display(Markdown(f"{next_easter_egg} ({next_easter_egg['title']})"))
