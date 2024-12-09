@@ -96,6 +96,7 @@ class PuzzleWrapper:
 
     def print_article(self, part: int):
         files = [
+            self.puzzle.prose0_path,
             self.puzzle.prose1_path,
             self.puzzle.prose2_path
         ]
