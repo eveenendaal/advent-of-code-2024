@@ -91,8 +91,9 @@ class PuzzleWrapper:
 
         return output
 
-    def get_code_block(self, block_number: int, min_length=30) -> str:
-        return self.get_code_blocks(min_length)[block_number]
+    def get_code_block(self, block_number: int, min_length=30) -> InputReader:
+        blocks = self.get_code_blocks(min_length)
+        return InputReader(blocks[block_number])
 
     def print_article(self, part: int):
         files = [
