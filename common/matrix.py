@@ -110,6 +110,14 @@ class MatrixNavigator:
         self.matrix = matrix
         self.current_position = (x, y)
 
+    def copy(self):
+        """
+        Create a copy of the navigator
+
+        :return:
+        """
+        return MatrixNavigator(self.matrix, self.current_position[0], self.current_position[1])
+
     def move(self, direction: Direction) -> bool:
         """
         Move in a direction
