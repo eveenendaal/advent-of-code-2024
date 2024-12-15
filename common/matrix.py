@@ -68,7 +68,7 @@ class Matrix:
 
         :yield: (x, y, value)
         """
-        for y in range(self.rows):
+        for y in range(self.rows - 1):
             for x in range(self.cols):
                 yield x, y, self.get_value(x, y)
 
@@ -79,6 +79,7 @@ class Matrix:
         :return: Matrix
         """
         return Matrix(copy.deepcopy(self.matrix))
+
 
 class Direction(Enum):
     """
