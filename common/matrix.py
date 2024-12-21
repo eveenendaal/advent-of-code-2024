@@ -55,7 +55,7 @@ class Matrix:
         """
         return self.matrix
     
-    def find(self, value):
+    def find(self, value) -> tuple:
         """
         Find value in matrix
 
@@ -65,7 +65,7 @@ class Matrix:
         for y in range(self.rows):
             for x in range(self.cols):
                 if self.get_value(x, y) == value:
-                    return x, y
+                    return (x, y)
         return None
 
     def print(self):
