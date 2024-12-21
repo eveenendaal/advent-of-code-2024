@@ -68,7 +68,7 @@ class Matrix:
 
         :yield: (x, y, value)
         """
-        for y in range(self.rows - 1):
+        for y in range(self.rows):
             for x in range(self.cols):
                 yield x, y, self.get_value(x, y)
 
@@ -185,7 +185,7 @@ class MatrixNavigator:
         :param y:
         :return:
         """
-        if 0 <= x < self.matrix.rows and 0 <= y < self.matrix.cols:
+        if 0 <= x <= self.matrix.rows and 0 <= y <= self.matrix.cols:
             self.current_position = (x, y)
         else:
             raise ValueError("Position out of bounds")
