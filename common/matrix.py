@@ -54,6 +54,19 @@ class Matrix:
         :return:
         """
         return self.matrix
+    
+    def find(self, value):
+        """
+        Find value in matrix
+
+        :param value:
+        :return: (x, y) or None
+        """
+        for y in range(self.rows):
+            for x in range(self.cols):
+                if self.get_value(x, y) == value:
+                    return x, y
+        return None
 
     def print(self):
         """
